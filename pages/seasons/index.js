@@ -1,13 +1,12 @@
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { CURRENT_SEASON } from '@/apollo/queries'
 import { CREATE_SEASON } from '@/apollo/mutations'
-
+import { NetworkStatus } from '@apollo/client'
 import SeasonData from '@/components/seasons/SeasonData'
 
 const Index = () => {
-  const { loading, error, data, refetch } = useQuery(CURRENT_SEASON)
-  const [createSeason] = useMutation(CREATE_SEASON)
-
+  const { loading: queryLoading, client, error: queryError, data, refetch, networkStatus } = useQuery(CURRENT_SEASON)
+  const [createSeason, { loading: mutationLoading, error: mutationError }] = useMutation(CREATE_SEASON)
   const season = data && data.currentSeason || null
 
   const seasonData = () => {
@@ -30,19 +29,26 @@ const Index = () => {
     }
   }
 
-  if (loading) {
-    return <div>Loading season situation...</div>
+  const creatingErrors = () => {
+    if (mutationError) {
+      return <div>{mutationError}</div>
+    }
   }
 
-  if(error) {
-    return <div>{error + ''}</div>
-  }
+  if (queryLoading) return <div>Loading season situation...</div>
+
+  if (mutationLoading) return <div>Updating season situation...</div>
+
+  if (queryError) return <div>{queryError.message}</div>
+
+  if (networkStatus === NetworkStatus.refetch) return 'Reloading !'
 
   return (
     <>
       <h1>TEMPORADAS</h1>
       { seasonData() }
       { createButton() }
+      { creatingErrors() }
     </>
   )
 }
