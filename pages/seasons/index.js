@@ -1,16 +1,32 @@
-import { useQuery } from '@apollo/react-hooks'
-import { CURRENT_SEASON } from '../../apollo/queries'
-import SeasonData from
+import { useQuery, useMutation } from '@apollo/react-hooks'
+import { CURRENT_SEASON } from '@/apollo/queries'
+import { CREATE_SEASON } from '@/apollo/mutations'
+
+import SeasonData from '@/components/seasons/SeasonData'
 
 const Index = () => {
-  const { loading, error, data } = useQuery(CURRENT_SEASON)
+  const { loading, error, data, refetch } = useQuery(CURRENT_SEASON)
+  const [createSeason] = useMutation(CREATE_SEASON)
 
-  const seasonExist = data && data.currentSeason || null
+  const season = data && data.currentSeason || null
+
+  const seasonData = () => {
+    if(season) {
+      return <SeasonData data={season} />
+    }
+  }
+
+  const createSeasonHandler = async () => {
+    await createSeason()
+    refetch()
+  }
 
   const createButton = () => {
-    if (!seasonExist) {
-      console.log('entrou no btn')
-      return <input type="button" value="Criar Temporada"  />
+    if (!season) {
+      return <>
+        <p>Nenhuma temporada cadastrada</p>
+        <input type="button" value="Criar Temporada" onClick={() => createSeasonHandler()} />
+      </>
     }
   }
 
@@ -24,8 +40,9 @@ const Index = () => {
 
   return (
     <>
-      <div>Seasons</div>
+      <h1>TEMPORADAS</h1>
       { seasonData() }
+      { createButton() }
     </>
   )
 }

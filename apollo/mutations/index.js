@@ -1,7 +1,10 @@
-import { gql } from 'apollo-boost'
+import { gql } from '@apollo/client'
 
 export const CREATE_SEASON = gql`
   mutation createSeason {
-    createSeason
+    createSeason {
+      id,
+      year
+    }
   }
 `

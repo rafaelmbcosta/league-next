@@ -1,9 +1,10 @@
 import '../styles/globals.css'
-import ApolloClient from 'apollo-boost'
+import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { ApolloProvider } from '@apollo/react-hooks'
 
 const client = new ApolloClient({
-  uri: 'http://192.168.99.100:3001/graphql'
+  uri: 'http://localhost:3001/graphql',
+  cache: new InMemoryCache()
 })
 
 function MyApp({ Component, pageProps }) {
