@@ -5,7 +5,7 @@ import { NetworkStatus } from '@apollo/client'
 import SeasonData from '@/components/seasons/SeasonData'
 
 const Index = () => {
-  const { loading: queryLoading, client, error: queryError, data, refetch, networkStatus } = useQuery(CURRENT_SEASON)
+  const { loading: queryLoading, error: queryError, data, refetch, networkStatus } = useQuery(CURRENT_SEASON)
   const [createSeason, { loading: mutationLoading, error: mutationError }] = useMutation(CREATE_SEASON)
   const season = data && data.currentSeason || null
 
