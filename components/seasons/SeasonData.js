@@ -1,4 +1,4 @@
-import DisputeList from './DisputeList'
+import DisputeList from '../disputes/DisputeList'
 import { useRouter } from 'next/router'
 import { Button } from '@material-ui/core'
 
