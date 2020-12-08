@@ -3,17 +3,13 @@ import { gql } from '@apollo/client'
 export const CURRENT_SEASON = gql`
   query getSeason {
     currentSeason {
-  	id
-  	year
-  	disputes {
       id
-      name
-      rounds {
+      year
+      disputes {
         id
-        number
-        finished
-        golden
+        order
+        name
       }
     }
   }
-}`
+`

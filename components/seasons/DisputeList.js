@@ -1,12 +1,13 @@
+import DisputeItem from './DisputeItem'
+
 const DisputeList = ({ disputes }) => {
   const list = () => {
     return disputes.map(element => {
-      element.name
+      return <DisputeItem dispute={element} key={element.id} />
     })
   }
   return(
     <div>
-      --- disputes ---
       { list() }
     </div>
   )
