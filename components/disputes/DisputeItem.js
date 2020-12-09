@@ -1,4 +1,3 @@
-import DisputeList from "./DisputeList"
 import { Card, CardContent  } from '@material-ui/core'
 
 const DisputeItem = ({dispute}) => {

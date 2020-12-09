@@ -1,28 +1,21 @@
 import { gql } from '@apollo/client'
+import { Season } from '../fragments/season'
+import { Dispute } from '../fragments/dispute'
 
 export const CREATE_SEASON = gql`
   mutation createSeason {
     createSeason {
-      id
-      year
-      disputes {
-        id
-        order
-        name
-      }
+      ...SeasonDetails
     }
   }
+  ${Season.fragments.details}
 `
 
 export const CREATE_DISPUTE = gql`
   mutation createDispute ($name: String!){
     createDispute(name: $name) {
-      id
-      order
-      name
-      season {
-        id
-      }
+      ...DisputeDetails
     }
   }
+  ${Dispute.fragments.details}
 `

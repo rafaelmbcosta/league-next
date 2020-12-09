@@ -1,15 +1,11 @@
 import { gql } from '@apollo/client'
+import { Season } from '../fragments/season'
 
 export const CURRENT_SEASON = gql`
   query getSeason {
     currentSeason {
-      id
-      year
-      disputes {
-        id
-        order
-        name
-      }
+      ...SeasonDetails
     }
   }
+  ${Season.fragments.details}
 `
