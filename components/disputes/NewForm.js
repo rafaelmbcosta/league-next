@@ -1,13 +1,15 @@
 import { useMutation } from '@apollo/react-hooks'
 import { CREATE_DISPUTE } from '@/apollo/mutations'
-import { Button, Card, TextField, Alert } from "@material-ui/core"
+import { Button, Card, TextField } from "@material-ui/core"
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import SuccessAlert from './SuccessAlert'
+import ErrorAlert from './ErrorAlert'
 
 const NewForm = () => {
   const router = useRouter()
   const [name, setName] = useState('')
-  const [createDispute, { error, networkError, called, loading }] = useMutation(CREATE_DISPUTE, {
+  const [createDispute, { error, called, loading }] = useMutation(CREATE_DISPUTE, {
     errorPolicy: 'all',
     update(cache, { data: { createDispute } }) {
       cache.modify({
@@ -21,45 +23,15 @@ const NewForm = () => {
     }
   })
 
-  const successAlert = () => {
-    if (!error && called && !loading) {
-      return(
-        <Alert severity="success">
-          Periodo de Disputa criado com sucesso
-        </Alert>
-      )
-    }
-  }
-
-  const teste = () => {
-    if (networkError) {
-      console.log(networkError)
-    }
-  }
-
-  const errorAlert = () => {
-    if (error) {
-      return(
-        <Alert severity="error">
-          ERRO AO CRIAR: { error.networkError.result.errors.map(e => e.message).join(' ') }
-        </Alert>
-      )
-    }
-  }
-
   const handleFormSubmit = async () => {
-    try {
-      await createDispute({ variables: { name } })
-    } catch(e) {
-      console.log('esse é outro errro' +e)
-    }
+    await createDispute({ variables: { name } })
     setName('')
   }
 
   return(
     <form >
-      { successAlert() }
-      { errorAlert() }
+      <SuccessAlert error={error} called={called} loading={loading} />
+      <ErrorAlert error={error} />
       <Card>
         <TextField label="Nome do periodo de disputa" onChange={e => setName(e.target.value)} />
         <Button disabled={loading} variant="contained" onClick={() => handleFormSubmit()}>Criar</Button>
