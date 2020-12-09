@@ -7,6 +7,10 @@ export const Dispute = {
         id
         order
         name
+        rounds {
+          id
+          number
+        }
         season {
           id
         }
