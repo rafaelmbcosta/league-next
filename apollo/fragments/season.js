@@ -10,6 +10,10 @@ export const Season = {
           id
           order
           name
+          rounds {
+            id
+            number
+          }
         }
       }
     `

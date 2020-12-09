@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles'
+import ChipList from '../rounds/ChipList'
 
 import {
   Card,
@@ -22,7 +23,7 @@ const DisputeItem = ({dispute}) => {
     <Card className={classes.card}>
       <CardContent>
         <Typography variant="h5" component="div">{ dispute.name.toUpperCase() }</Typography>
-        <Typography variant="body1" component="div">Aqui ficarão os rounds</Typography>
+        <ChipList rounds={dispute.rounds} />
       </CardContent>
       <CardActions>
         <Button variant="outlined" size="small">Adicionar Rodada</Button>
