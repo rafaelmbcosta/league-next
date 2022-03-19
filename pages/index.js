@@ -1,6 +1,6 @@
-import { Center, Container, Flex } from '@chakra-ui/react'
-import Notices from '../components/home/Notices'
-import TopScores from '../components/home/TopScores'
+import { Center, Container, Flex } from '@chakra-ui/react';
+import Notices from '../components/home/Notices';
+import TopScores from '../components/home/TopScores';
 
 export default function Home() {
   return (
@@ -12,5 +12,5 @@ export default function Home() {
         </Flex>
       </Center>
     </Container>
-  )
+  );
 }
